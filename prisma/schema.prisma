@@ -8,7 +8,60 @@ datasource db {
 }
 
 model User {
-  userId   Int    @id
+  userId   Int    @id @default(autoincrement())
   username String
   email    String @unique
+
+  sessions Session[]
+}
+
+model Player {
+  playerId Int @id @default(autoincrement())
+  playerName String
+  totalGamesPlayed Int @default(0)
+  clubForm Float @default(0)
+  clubRanking Int?
+
+  sessions PlayerSession[]
+}
+
+model Session {
+  sessionId Int @id @default(autoincrement())
+  startDate DateTime
+  endDate DateTime
+  userId Int
+
+  user      User     @relation(fields: [userId], references: [userId])
+
+  games Game[]
+  players PlayerSession[]
+}
+
+model PlayerSession {
+  playerId Int
+  sessionId Int
+  totalGamesPlayed Int @default(0)
+  gamesWon Int @default(0)
+  sessionForm Float @default(0)
+  averagePoints Float @default(0)
+
+  player      Player     @relation(fields: [playerId], references: [playerId])
+  session   Session  @relation(fields: [sessionId], references: [sessionId])
+
+  @@id([playerId, sessionId])
+}
+
+model Game {
+  gameId Int @id @default(autoincrement())
+  sessionId Int
+  player1 Int
+  player2 Int
+  player3 Int
+  player4 Int
+  scoreHome Int
+  scoreAway Int
+  gameTimeMins Float
+  winnerHome Boolean
+
+  session   Session  @relation(fields: [sessionId], references: [sessionId])
 }
