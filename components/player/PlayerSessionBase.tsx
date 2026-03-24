@@ -1,31 +1,30 @@
 "use client";
 
-import { PlayerSession } from "@/types/playerSession.types";
 import AddPlayerToSession from "./AddPlayerToSession";
 import CurrentSessionPlayers from "./CurrentSessionPlayers";
 import { useState } from "react";
 import { AllPlayer } from "@/types/player.types";
 
 export default function PlayerSessionBase({
-  allPlayers,
+  allPlayersRes,
   sessionId,
 }: {
-  allPlayers: AllPlayer[];
+  allPlayersRes: AllPlayer[];
   sessionId: number;
 }) {
-  const [sessionPlayers, setSessionPlayers] =
-    useState<AllPlayer[]>(allPlayers);
+  const [allPlayers, setAllPlayers] =
+    useState<AllPlayer[]>(allPlayersRes);
 
   return (
     <>
       <AddPlayerToSession
-        currentPlayers={sessionPlayers}
-        setSessionPlayers={setSessionPlayers}
+        allPlayers={allPlayers}
+        setAllPlayers={setAllPlayers}
         sessionId={sessionId}
       />
       <CurrentSessionPlayers
-        currentPlayers={sessionPlayers}
-        setSessionPlayers={setSessionPlayers}
+        allPlayers={allPlayers}
+        setAllPlayers={setAllPlayers}
         sessionId={sessionId}
       />
     </>

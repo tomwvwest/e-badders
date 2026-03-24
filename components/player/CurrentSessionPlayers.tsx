@@ -3,22 +3,23 @@
 import { removeSessionPlayerAction } from "@/app/actions/player.actions";
 import useEditPlayerAttendance from "@/hooks/useEditPlayerAttendance";
 import { AllPlayer } from "@/types/player.types";
-import { PlayerSession } from "@/types/playerSession.types";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 export default function CurrentSessionPlayers({
-  currentPlayers,
-  setSessionPlayers,
+  allPlayers,
+  setAllPlayers,
   sessionId,
 }: {
-  currentPlayers: AllPlayer[];
-  setSessionPlayers: Dispatch<SetStateAction<AllPlayer[]>>;
+  allPlayers: AllPlayer[];
+  setAllPlayers: Dispatch<SetStateAction<AllPlayer[]>>;
   sessionId: number;
 }) {
-  const sessionPlayers = currentPlayers.filter((p) => p.isSessionPlayer);
+  const sessionPlayers = allPlayers
+    .filter((p) => p.isSessionPlayer)
+    .sort((a, b) => a.playerId - b.playerId);
 
   const removePlayer = async (playerId: number) => {
-    useEditPlayerAttendance(playerId, false, setSessionPlayers);
+    useEditPlayerAttendance(playerId, false, setAllPlayers);
     await removeSessionPlayerAction(playerId, sessionId);
   };
 

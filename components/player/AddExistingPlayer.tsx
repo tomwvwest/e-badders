@@ -1,17 +1,18 @@
 "use client";
 
 import { AllPlayer, CreatePlayer } from "@/types/player.types";
-import { Dispatch, SetStateAction } from "react";
 
 export default function AddExistingPlayer({
-  currentPlayers,
+  allPlayers,
   addPlayer,
 }: {
-  currentPlayers: AllPlayer[] | undefined;
+  allPlayers: AllPlayer[] | undefined;
   addPlayer: (playerId?: number, player?: CreatePlayer) => Promise<void>;
 }) {
-  if (!currentPlayers?.length) return;
-  const existingPlayers = currentPlayers.filter((p) => !p.isSessionPlayer);
+  if (!allPlayers?.length) return;
+  const existingPlayers = allPlayers
+    .filter((p) => !p.isSessionPlayer)
+    .sort((a, b) => a.playerId - b.playerId);
 
   return (
     <>

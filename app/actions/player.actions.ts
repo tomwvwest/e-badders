@@ -4,8 +4,6 @@ import { prisma } from "@/lib/db";
 import {
   addPlayerToSession,
   createSessionPlayer,
-  getUserPlayers,
-  removeSessionPlayer,
 } from "@/services/player.service";
 import { Player, CreatePlayer } from "@/types/player.types";
 

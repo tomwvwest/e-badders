@@ -9,10 +9,10 @@ export async function createSessionPlayer(
   const player = await createPlayer(data);
   addPlayerToSession(player.playerId, sessionId);
 
-  const allPlayer = player as AllPlayer;
-  allPlayer.isSessionPlayer = true;
-
-  return allPlayer;
+  return {
+    ...player,
+    isSessionPlayer: true
+  };
 }
 
 export async function createPlayer(data: CreatePlayer): Promise<Player> {
@@ -27,11 +27,12 @@ export async function getUserPlayers(userId: number) {
   });
 }
 
-export async function getAllPlayers(userId: number, sessionId: number) {
+export async function getAllPlayers(
+  userId: number,
+  sessionId: number
+): Promise<AllPlayer[]> {
   const players = await prisma.player.findMany({
-    where: {
-      userId: userId,
-    },
+    where: { userId },
     include: {
       sessions: {
         where: { sessionId },
@@ -39,23 +40,26 @@ export async function getAllPlayers(userId: number, sessionId: number) {
     },
   });
 
-  const allPlayers: AllPlayer[] = players.map((p) => ({
-    playerId: p.playerId,
-    playerName: p.playerName,
-    totalGamesPlayed: p.totalGamesPlayed,
-    clubForm: p.clubForm,
-    clubRanking: p.clubRanking,
-    userId: p.userId,
-    isSessionPlayer: !!p.sessions[0],
-  }));
-
-  return allPlayers;
+  return players.map(p => ({
+    ...p,
+    isSessionPlayer: p.sessions.length > 0
+  }))
 }
 
 export async function addPlayerToSession(
   playerId: number,
   sessionId: number
 ): Promise<AllPlayer> {
+  const player = await prisma.player.findUnique({
+    where: {
+      playerId: playerId,
+    },
+  });
+
+  if (!player) {
+    throw new Error("Player not found");
+  }
+
   await prisma.playerSession.create({
     data: {
       playerId: playerId,
@@ -63,27 +67,10 @@ export async function addPlayerToSession(
     },
   });
 
-  const player = await prisma.player.findUnique({
-    where: {
-      playerId: playerId,
-    },
-    include: {
-      sessions: {
-        where: { sessionId },
-      },
-    },
-  });
-
-  const allPlayer: AllPlayer = {
-    playerId: player!.playerId,
-    playerName: player!.playerName,
-    totalGamesPlayed: player!.totalGamesPlayed,
-    clubForm: player!.clubForm,
-    clubRanking: player!.clubRanking,
-    userId: player!.userId,
+  return {
+    ...player,
     isSessionPlayer: true,
-  }
-  return allPlayer;
+  };
 }
 
 export async function removeSessionPlayer(playerId: number, sessionId: number) {

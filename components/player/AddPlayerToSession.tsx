@@ -3,21 +3,19 @@
 import {
   addSessionPlayerAction,
   createSessionPlayerAction,
-  getUserPlayersAction,
 } from "@/app/actions/player.actions";
 import { AllPlayer, CreatePlayer, Player } from "@/types/player.types";
-import { PlayerSession } from "@/types/playerSession.types";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import AddExistingPlayer from "./AddExistingPlayer";
 import useEditPlayerAttendance from "@/hooks/useEditPlayerAttendance";
 
 export default function AddPlayerToSession({
-  currentPlayers,
-  setSessionPlayers,
+  allPlayers,
+  setAllPlayers,
   sessionId,
 }: {
-  currentPlayers: AllPlayer[];
-  setSessionPlayers: Dispatch<SetStateAction<AllPlayer[]>>;
+  allPlayers: AllPlayer[];
+  setAllPlayers: Dispatch<SetStateAction<AllPlayer[]>>;
   sessionId: number;
 }) {
   const [showForm, setShowForm] = useState<boolean>(false);
@@ -40,19 +38,15 @@ export default function AddPlayerToSession({
 
     if (isNewPlayer) {
       const newPlayer = await createSessionPlayerAction(player!, sessionId);
-      setSessionPlayers((curr) => [...curr, newPlayer]);
+      setAllPlayers((curr) => [...curr, newPlayer]);
     } else {
       await addSessionPlayerAction(playerId, sessionId);
-      useEditPlayerAttendance(playerId, true, setSessionPlayers);
+      useEditPlayerAttendance(playerId, true, setAllPlayers);
     }
   };
 
-  const getUserPlayers = () => {
-    setShowForm((x) => !x);
-  };
-
   return showForm ? (
-    <button onClick={getUserPlayers}>Click to add player</button>
+    <button onClick={() => setShowForm((x) => !x)}>Click to add player</button>
   ) : (
     <>
       <button onClick={() => addPlayer(undefined, randomPlayer)}>
@@ -60,7 +54,7 @@ export default function AddPlayerToSession({
       </button>
       <button onClick={() => setShowForm((x) => !x)}>Cancel</button>
       <AddExistingPlayer
-        currentPlayers={currentPlayers}
+        allPlayers={allPlayers}
         addPlayer={addPlayer}
       />
     </>

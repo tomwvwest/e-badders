@@ -25,7 +25,7 @@ export default async function SessionPage({ params }: Props) {
 
       {/* add player to session */}
       <PlayerSessionBase
-        allPlayers={allPlayers}
+        allPlayersRes={allPlayers}
         sessionId={sessionId}
       />
 
