@@ -20,6 +20,7 @@ model Player {
   totalGamesPlayed Int             @default(0)
   clubForm         Float           @default(0)
   clubRanking      Int?
+  userId           Int?
   sessions         PlayerSession[]
 }
 

@@ -6,3 +6,15 @@ export async function getSessionById(sessionId: number) {
 
   return session;
 }
+
+export async function getSessionPlayers(sessionId: number) {
+  return prisma.playerSession.findMany({
+    where: {
+      sessionId,
+    },
+    include: {
+      player: true,
+    },
+  });
+}
+
