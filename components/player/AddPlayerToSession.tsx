@@ -4,10 +4,11 @@ import {
   addSessionPlayerAction,
   createSessionPlayerAction,
 } from "@/app/actions/player.actions";
-import { AllPlayer, CreatePlayer, Player } from "@/types/player.types";
+import { AllPlayer, CreatePlayer } from "@/types/player.types";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import AddExistingPlayer from "./AddExistingPlayer";
 import useEditPlayerAttendance from "@/hooks/useEditPlayerAttendance";
+import NewPlayerForm from "./NewPlayerForm";
 
 export default function AddPlayerToSession({
   allPlayers,
@@ -19,11 +20,37 @@ export default function AddPlayerToSession({
   sessionId: number;
 }) {
   const [showForm, setShowForm] = useState<boolean>(false);
-  const nameCount = useRef(0);
+
+  const names = [
+    "Tom",
+    "Alex",
+    "Jamie",
+    "Chris",
+    "Sam",
+    "Jordan",
+    "Liam",
+    "Noah",
+    "Oliver",
+    "James",
+    "Lucas",
+    "Ethan",
+    "Mason",
+    "Logan",
+    "Leo",
+    "Jack",
+    "Harry",
+    "Oscar",
+    "Theo",
+    "Max",
+    "Charlie",
+    "Freddie",
+    "Archie",
+    "Henry",
+    "Jacob",
+    "Arthur"
+  ];  
   const newName = () => {
-    const name = "Tom" + nameCount.current;
-    nameCount.current++;
-    return name;
+    return names[Math.floor(Math.random() * names.length)]; 
   };
   const randomPlayer: CreatePlayer = {
     playerName: newName(),
@@ -46,17 +73,16 @@ export default function AddPlayerToSession({
   };
 
   return showForm ? (
-    <button onClick={() => setShowForm((x) => !x)}>Click to add player</button>
-  ) : (
     <>
       <button onClick={() => addPlayer(undefined, randomPlayer)}>
-        add a new person
+        add a random person
       </button>
       <button onClick={() => setShowForm((x) => !x)}>Cancel</button>
-      <AddExistingPlayer
-        allPlayers={allPlayers}
-        addPlayer={addPlayer}
-      />
+
+      <NewPlayerForm addPlayer={addPlayer}/>
+      <AddExistingPlayer allPlayers={allPlayers} addPlayer={addPlayer} />
     </>
+  ) : (
+    <button onClick={() => setShowForm((x) => !x)}>Click to add player</button>
   );
 }

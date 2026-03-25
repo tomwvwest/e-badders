@@ -5,7 +5,7 @@ import {
   addPlayerToSession,
   createSessionPlayer,
 } from "@/services/player.service";
-import { Player, CreatePlayer } from "@/types/player.types";
+import { CreatePlayer } from "@/types/player.types";
 
 export async function addSessionPlayerAction(
   playerId: number,

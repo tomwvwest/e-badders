@@ -18,7 +18,11 @@ export default function AddExistingPlayer({
     <>
       <p>Pick from existing players: </p>
       {existingPlayers.map((p) => (
-        <button key={p.playerId} onClick={() => addPlayer(p.playerId)}>
+        <button
+          className="px-5"
+          key={p.playerId}
+          onClick={() => addPlayer(p.playerId)}
+        >
           {p.playerName}
         </button>
       ))}

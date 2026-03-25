@@ -23,12 +23,12 @@ export default function CurrentSessionPlayers({
     await removeSessionPlayerAction(playerId, sessionId);
   };
 
-  return sessionPlayers.map(({ playerId, playerName }) => (
-    <div className="flex" key={playerId}>
-      <p>
-        {playerId}: {playerName}
+  return sessionPlayers.map(({ playerId, playerName }, i) => (
+    <div key={playerId} className="border flex gap-6">
+      <p className="">
+        {i + 1}: {playerName}
       </p>
-      <button onClick={() => removePlayer(playerId)}>Delete</button>
+      <button onClick={() => removePlayer(playerId)}>Remove</button>
     </div>
   ));
 }
