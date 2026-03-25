@@ -1,7 +1,7 @@
 "use client";
 
 import Court from "./Court";
-import useCourtReducer from "@/hooks/useCourtReducer";
+import useCourtReducer from "@/hooks/reducer/useCourtReducer";
 import { ActiveCourts, CourtState } from "@/types/court.types";
 
 const initialCourtState: ActiveCourts = [

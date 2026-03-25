@@ -3,8 +3,6 @@
 import { removeSessionPlayerAction } from "@/app/actions/player.actions";
 import { useAllPlayers } from "@/hooks/context/useAllPlayers";
 import useEditPlayerAttendance from "@/hooks/useEditPlayerAttendance";
-import { AllPlayer } from "@/types/player.types";
-import { Dispatch, SetStateAction } from "react";
 
 export default function CurrentSessionPlayers({
   sessionId,

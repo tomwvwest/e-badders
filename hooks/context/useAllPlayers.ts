@@ -5,7 +5,7 @@ export function useAllPlayers() {
   const context = useContext(AllPlayerContext);
 
   if (!context) {
-    throw new Error("useAllPlayers must be used within AllPlayerProvider");
+    throw new Error("Could not acquire player context");
   }
 
   return context;

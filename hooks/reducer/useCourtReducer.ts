@@ -1,4 +1,4 @@
-import { ActiveCourts } from "@/components/games/GameBase";
+import { ActiveCourts } from "@/types/court.types";
 import { useReducer } from "react";
 
 type Action = {

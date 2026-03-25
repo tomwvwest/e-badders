@@ -8,5 +8,15 @@ export type CourtState = {
   };
   secondsPlayed: number;
 };
-
 export type ActiveCourts = CourtState[];
+
+export type CourtPlayer = {
+  playerId: number;
+  name: string;
+};
+
+export type PickPlayersState = {
+  noOfCourts: 4;
+  players: Record<number , CourtPlayer | null>
+  focusedInput: number | null;
+};

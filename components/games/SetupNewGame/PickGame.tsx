@@ -2,35 +2,48 @@
 
 import { useForm } from "react-hook-form";
 import PlayerSuggestions from "./PlayerSuggestions";
+import usePickGameReducer from "@/hooks/reducer/usePickGameReducer";
 
 type FormValues = {
-  player1Id: string;
-  player2Id: string;
-  player3Id?: string;
-  player4Id?: string;
+  searchValue: string;
 };
 
 export default function PickGame() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<FormValues>();
+  const { register, handleSubmit } = useForm<FormValues>();
+  const [state, dispatch] = usePickGameReducer();
 
   const onSubmit = async (data: FormValues) => {
     console.log(data);
   };
 
+  console.log(state);
+
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("player1Id")} placeholder="Add player 1"></input>
-        <input {...register("player2Id")} placeholder="Add player 2"></input>
-        <input {...register("player3Id")} placeholder="Add player 3"></input>
-        <input {...register("player4Id")} placeholder="Add player 4"></input>
+      <div className="flex gap-4">
+        {Array.from({ length: state.noOfCourts }, (_, i) => {
+          const positionId = i + 1;
+          const player = state.players[positionId];
+
+          return (
+            <p
+              key={positionId}
+              className={state.focusedInput === positionId ? "border" : ""}
+            >
+              {player ? player.name : "Empty"}
+            </p>
+          );
+        })}
+      </div>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="flex gap-6">
+        <input
+          {...register("searchValue")}
+          placeholder="Search for a player..."
+        />
         <button>Create Game</button>
       </form>
-      {/* <PlayerSuggestions /> */}
+      <PlayerSuggestions state={state} dispatch={dispatch} />
     </>
   );
 }
