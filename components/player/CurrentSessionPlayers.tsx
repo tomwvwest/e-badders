@@ -1,19 +1,17 @@
 "use client";
 
 import { removeSessionPlayerAction } from "@/app/actions/player.actions";
+import { useAllPlayers } from "@/hooks/context/useAllPlayers";
 import useEditPlayerAttendance from "@/hooks/useEditPlayerAttendance";
 import { AllPlayer } from "@/types/player.types";
 import { Dispatch, SetStateAction } from "react";
 
 export default function CurrentSessionPlayers({
-  allPlayers,
-  setAllPlayers,
   sessionId,
 }: {
-  allPlayers: AllPlayer[];
-  setAllPlayers: Dispatch<SetStateAction<AllPlayer[]>>;
   sessionId: number;
 }) {
+  const { allPlayers, setAllPlayers } = useAllPlayers();
   const sessionPlayers = allPlayers
     .filter((p) => p.isSessionPlayer)
     .sort((a, b) => a.playerId - b.playerId);

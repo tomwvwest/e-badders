@@ -1,14 +1,14 @@
 "use client";
 
+import { useAllPlayers } from "@/hooks/context/useAllPlayers";
 import { AllPlayer, CreatePlayer } from "@/types/player.types";
 
 export default function AddExistingPlayer({
-  allPlayers,
   addPlayer,
 }: {
-  allPlayers: AllPlayer[] | undefined;
   addPlayer: (playerId?: number, player?: CreatePlayer) => Promise<void>;
 }) {
+  const { allPlayers } = useAllPlayers();
   if (!allPlayers?.length) return;
   const existingPlayers = allPlayers
     .filter((p) => !p.isSessionPlayer)

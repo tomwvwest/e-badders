@@ -1,6 +1,6 @@
 import GameBase from "@/components/games/GameBase";
-import AddPlayerToSession from "@/components/player/AddPlayerToSession";
-import PlayerSessionBase from "@/components/player/PlayerSessionBase";
+import PlayerBase from "@/components/player/PlayerBase";
+import SessionBase from "@/components/session/SessionBase";
 import { getAllPlayers } from "@/services/player.service";
 import { getSessionById } from "@/services/session.service";
 import { AllPlayer } from "@/types/player.types";
@@ -22,11 +22,10 @@ export default async function SessionPage({ params }: Props) {
       <div className="border">
         <p>Started at: {currentSession?.startDate.toUTCString()}</p>
 
-        {/* add game to session */}
-        <GameBase />
-
-        {/* add player to session */}
-        <PlayerSessionBase allPlayersRes={allPlayers} sessionId={sessionId} />
+        <SessionBase allPlayersRes={allPlayers}>
+          <GameBase />
+          <PlayerBase sessionId={sessionId} />
+        </SessionBase>
       </div>
     </div>
   );
