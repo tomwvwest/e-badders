@@ -2,36 +2,46 @@
 
 import { useForm } from "react-hook-form";
 import PlayerSuggestions from "./PlayerSuggestions";
-import usePickGameReducer from "@/hooks/reducer/usePickGameReducer";
+import usePickGameReducer from "@/hooks/reducer/usePickGameReducer/usePickGameReducer";
+import { useAllPlayers } from "@/hooks/context/useAllPlayers";
+import { CourtPlayer } from "@/types/court.types";
 
 type FormValues = {
   searchValue: string;
 };
 
 export default function PickGame() {
+  const { allPlayers } = useAllPlayers();
   const { register, handleSubmit } = useForm<FormValues>();
-  const [state, dispatch] = usePickGameReducer();
+  const benchOptions = allPlayers
+    .filter((p) => p.isSessionPlayer)
+    .map((p) => ({
+      playerId: p.playerId,
+      name: p.playerName,
+    })) as CourtPlayer[];
+
+  const [state, dispatch] = usePickGameReducer(benchOptions);
+  const { noOfPositions, filledPositions, focusedInput } = state;
 
   const onSubmit = async (data: FormValues) => {
     console.log(data);
   };
 
-  console.log(state);
-
   return (
     <>
       <div className="flex gap-4">
-        {Array.from({ length: state.noOfCourts }, (_, i) => {
+        {Array.from({ length: noOfPositions }, (_, i) => {
           const positionId = i + 1;
-          const player = state.players[positionId];
+          const player = filledPositions[positionId];
 
           return (
-            <p
+            <button
               key={positionId}
-              className={state.focusedInput === positionId ? "border" : ""}
+              onClick={() => dispatch({ type: "focusPosition", positionId })}
+              className={focusedInput === positionId ? "border" : ""}
             >
               {player ? player.name : "Empty"}
-            </p>
+            </button>
           );
         })}
       </div>
@@ -41,8 +51,8 @@ export default function PickGame() {
           {...register("searchValue")}
           placeholder="Search for a player..."
         />
-        <button>Create Game</button>
       </form>
+      <button>Create Game</button>
       <PlayerSuggestions state={state} dispatch={dispatch} />
     </>
   );

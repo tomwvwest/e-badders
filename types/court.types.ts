@@ -16,7 +16,10 @@ export type CourtPlayer = {
 };
 
 export type PickPlayersState = {
-  noOfCourts: 4;
-  players: Record<number , CourtPlayer | null>
-  focusedInput: number | null;
+  noOfPositions: 4;
+  filledPositions: Record<number , CourtPlayer | null>
+  benchedPlayers: CourtPlayer[],
+  focusedInput: FocusedInput;
 };
+
+export type FocusedInput = number | null;
