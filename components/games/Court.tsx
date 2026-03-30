@@ -20,7 +20,7 @@ export default function Court({
       {emptyCourt ? (
         <SetupNewGame courtId={courtId} />
       ) : (
-        <ActiveCourt courtState={courtState} />
+        <ActiveCourt court={courtState} />
       )}
     </div>
   );

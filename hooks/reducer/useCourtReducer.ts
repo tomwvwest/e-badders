@@ -7,16 +7,17 @@ export type Action =
       courtId: number;
       players: Record<number, CourtPlayer | null>;
     }
+  | { type: "incrementTimer" }
   | {
-      type: "incrementTimer" | "resetTimer";
+      type: "resetTimer";
       courtId: number;
     };
 
 export default function useCourtReducer(initialState: ActiveCourts) {
   function reducer(state: ActiveCourts, action: Action) {
-    const { courtId } = action;
     switch (action.type) {
       case "startGame":
+        const { courtId } = action;
         if (!action.players) return state;
 
         return {
@@ -24,23 +25,26 @@ export default function useCourtReducer(initialState: ActiveCourts) {
           [courtId]: {
             ...state[courtId],
             players: action.players,
+            secondsPlayed: 0,
           },
         };
 
       case "incrementTimer":
-        return {
-          ...state,
-          [courtId]: {
-            ...state[courtId],
-            secondsPlayed: state[courtId].secondsPlayed + 1,
-          },
-        };
+        return Object.fromEntries(
+          Object.entries(state).map(([courtId, court]) => [
+            courtId,
+            {
+              ...court,
+              secondsPlayed: court.secondsPlayed + 1,
+            },
+          ])
+        );
 
       case "resetTimer":
         return {
           ...state,
-          [courtId]: {
-            ...state[courtId],
+          [action.courtId]: {
+            ...state[action.courtId],
             secondsPlayed: 0,
           },
         };

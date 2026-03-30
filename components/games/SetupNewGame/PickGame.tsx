@@ -39,7 +39,6 @@ export default function PickGame({ courtId }: { courtId: number }) {
 
   const createGame = () => {
     if (!canCreate) return;
-    console.log(state);
     courtDispatch({ type: "startGame", courtId, players: filledPositions });
   };
 
