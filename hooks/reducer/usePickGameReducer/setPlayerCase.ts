@@ -4,7 +4,6 @@ import {
   getNextFocusedInput,
   updateBenchPlayers,
 } from "./utils";
-import { Action } from "./usePickGameReducer";
 
 export default function setPlayerCase(
   playerState: PickPlayersState,

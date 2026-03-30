@@ -5,13 +5,17 @@ import PlayerSuggestions from "./PlayerSuggestions";
 import usePickGameReducer from "@/hooks/reducer/usePickGameReducer/usePickGameReducer";
 import { useAllPlayers } from "@/hooks/context/useAllPlayers";
 import { CourtPlayer } from "@/types/court.types";
+import getObjectLength from "@/utils/objectUtils";
+import { useCourts } from "@/hooks/context/useCourts";
 
 type FormValues = {
   searchValue: string;
 };
 
-export default function PickGame() {
+export default function PickGame({ courtId }: { courtId: number }) {
   const { allPlayers } = useAllPlayers();
+  const { courtDispatch } = useCourts();
+
   const { register, handleSubmit } = useForm<FormValues>();
   const benchOptions = allPlayers
     .filter((p) => p.isSessionPlayer)
@@ -23,8 +27,16 @@ export default function PickGame() {
   const [state, dispatch] = usePickGameReducer(benchOptions);
   const { noOfPositions, filledPositions, focusedInput } = state;
 
+  const canCreate = getObjectLength(filledPositions) === noOfPositions;
+
   const onSubmit = async (data: FormValues) => {
     console.log(data);
+  };
+
+  const createGame = () => {
+    if (!canCreate) return;
+    console.log(state);
+    courtDispatch({ type: "startGame", courtId, players: filledPositions });
   };
 
   return (
@@ -52,7 +64,9 @@ export default function PickGame() {
           placeholder="Search for a player..."
         />
       </form>
-      <button>Create Game</button>
+      <button onClick={createGame}>
+        {canCreate && ">> "}Create Game{canCreate && " <<"}
+      </button>
       <PlayerSuggestions state={state} dispatch={dispatch} />
     </>
   );

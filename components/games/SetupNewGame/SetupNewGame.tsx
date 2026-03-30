@@ -5,7 +5,7 @@ import PickGame from "./PickGame";
 
 type stepType = "manual" | "suggest" | undefined;
 
-export default function SetupNewGame() {
+export default function SetupNewGame({ courtId }: { courtId: number }) {
   const [step, setStep] = useState<stepType>(undefined);
 
   const resetStep = () => {
@@ -19,18 +19,18 @@ export default function SetupNewGame() {
   return (
     <div className="grid grid-rows">
       {/* form for selecting 4 players */}
-      <button onClick={() => handleStepSelection("manual")}>Pick a game</button>
+      <button onClick={() => handleStepSelection("manual")}>
+        Select Players
+      </button>
       {step === "manual" && (
         <>
-          <PickGame />
+          <PickGame courtId={courtId} />
           <button onClick={resetStep}>Cancel</button>
         </>
       )}
 
       {/* bring in suggestion thing - hard */}
       <button>Suggest Game</button>
-
-      <button>Start Game</button>
     </div>
   );
 }

@@ -1,14 +1,9 @@
 export type CourtState = {
   courtId: number;
-  playerIds: {
-    player1Id: number;
-    player2Id: number;
-    player3Id?: number;
-    player4Id?: number;
-  };
+  players: Record<number , CourtPlayer | null>;
   secondsPlayed: number;
 };
-export type ActiveCourts = CourtState[];
+export type ActiveCourts = Record<number, CourtState>;
 
 export type CourtPlayer = {
   playerId: number;
