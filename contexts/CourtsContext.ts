@@ -3,6 +3,7 @@ import { ActiveCourts } from "@/types/court.types";
 import { ActionDispatch, createContext } from "react";
 
 export type CourtContextType = {
+  courtsState: ActiveCourts,
   courtDispatch: ActionDispatch<[action: Action]>;
 };
 

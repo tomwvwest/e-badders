@@ -14,11 +14,15 @@ type FormValues = {
 
 export default function PickGame({ courtId }: { courtId: number }) {
   const { allPlayers } = useAllPlayers();
-  const { courtDispatch } = useCourts();
+  const { courtsState, courtDispatch } = useCourts();
 
   const { register, handleSubmit } = useForm<FormValues>();
+
+  const playingPlayerIds = Object.values(courtsState).flatMap((court) =>
+    Object.values(court.players).map((p) => p?.playerId)
+  );
   const benchOptions = allPlayers
-    .filter((p) => p.isSessionPlayer)
+    .filter((p) => p.isSessionPlayer && !playingPlayerIds.includes(p.playerId))
     .map((p) => ({
       playerId: p.playerId,
       name: p.playerName,

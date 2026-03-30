@@ -20,17 +20,16 @@ const initialCourtState: ActiveCourts = {
 
 export default function GameBase() {
   const numberOfCourts = 2;
-  const [activeCourtState, courtDispatch] = useCourtReducer(initialCourtState);
-  console.log(activeCourtState);
+  const [courtsState, courtDispatch] = useCourtReducer(initialCourtState);
 
   return (
     <div className="bg-blue-200">
       <h1>Games</h1>
 
-      <CourtContext.Provider value={{ courtDispatch }}>
+      <CourtContext.Provider value={{ courtsState, courtDispatch }}>
         {Array.from({ length: numberOfCourts }, (_, i) => {
           const courtId = i + 1;
-          const courtState = activeCourtState[courtId];
+          const courtState = courtsState[courtId];
 
           return (
             <Court key={courtId} courtState={courtState} courtId={courtId} />
