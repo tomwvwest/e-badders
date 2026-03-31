@@ -2,32 +2,18 @@
 
 import { CourtContext } from "@/contexts/CourtsContext";
 import Court from "./Court";
-import useCourtReducer from "@/hooks/reducer/useCourtReducer";
-import { ActiveCourts } from "@/types/court.types";
+import useCourtReducer from "@/hooks/reducer/useCourtReducer/useCourtReducer";
 import { useEffect } from "react";
 
-const initialCourtState: ActiveCourts = {
-  // 1: {
-  //   courtId: 1,
-  //   players: {
-  //     1: { playerId: 1, name: "Tom" },
-  //     2: { playerId: 2, name: "Lara" },
-  //     3: { playerId: 34, name: "Noah" },
-  //     4: { playerId: 36, name: "Jordan" },
-  //   },
-  //   secondsPlayed: 0,
-  // },
-};
-
 export default function GameBase() {
-  const numberOfCourts = 2;
-  const [courtsState, courtDispatch] = useCourtReducer(initialCourtState);
+  const numberOfCourts = 3;
+  const [courtsState, courtDispatch] = useCourtReducer();
 
   useEffect(() => {
     const interval = setInterval(() => {
       courtDispatch({ type: "incrementTimer" });
     }, 1000);
-  
+
     return () => clearInterval(interval);
   }, [courtDispatch]);
 

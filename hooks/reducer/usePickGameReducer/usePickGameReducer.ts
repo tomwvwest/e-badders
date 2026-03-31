@@ -1,10 +1,5 @@
 import { CourtPlayer, PickPlayersState } from "@/types/court.types";
 import { useReducer } from "react";
-import {
-  getNewAndExistingPlayers,
-  getNextFocusedInput,
-  updateBenchPlayers,
-} from "./utils";
 import setPlayerCase from "./setPlayerCase";
 
 export type Action =
@@ -22,7 +17,19 @@ export default function usePickGameReducer(initialPlayers: CourtPlayer[]) {
   function reducer(playerState: PickPlayersState, action: Action) {
     switch (action.type) {
       //handles assigning and swapping players
-      case "setPlayer": return setPlayerCase(playerState, action);
+      case "setPlayer":
+        return setPlayerCase(playerState, action);
+
+      // case "searchBenchedPlayers":
+      //   console.log(action.searchValue);
+      //   return {
+      //     ...playerState,
+      //     benchedPlayers: [
+      //       ...playerState.benchedPlayers.filter(({ name }) =>
+      //         name.includes(action.searchValue)
+      //       ),
+      //     ],
+      //   };
 
       case "focusPosition":
         return {

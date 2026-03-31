@@ -1,13 +1,15 @@
 "use client";
 import { Action } from "@/hooks/reducer/usePickGameReducer/usePickGameReducer";
-import { PickPlayersState } from "@/types/court.types";
+import { CourtPlayer, FocusedInput, PickPlayersState } from "@/types/court.types";
 import { ActionDispatch } from "react";
 
 export default function PlayerSuggestions({
-  state: { benchedPlayers, focusedInput },
+  benchedPlayers,
+  focusedInput,
   dispatch,
 }: {
-  state: PickPlayersState;
+  benchedPlayers: CourtPlayer[];
+  focusedInput: FocusedInput;
   dispatch: ActionDispatch<[action: Action]>;
 }) {
   const handlePlayerSelection = (playerId: number) => {

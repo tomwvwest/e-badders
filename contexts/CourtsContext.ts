@@ -1,4 +1,4 @@
-import { Action } from "@/hooks/reducer/useCourtReducer";
+import { Action } from "@/hooks/reducer/useCourtReducer/useCourtReducer";
 import { ActiveCourts } from "@/types/court.types";
 import { ActionDispatch, createContext } from "react";
 

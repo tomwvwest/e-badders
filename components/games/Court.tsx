@@ -1,7 +1,7 @@
 "use client";
 
 import SetupNewGame from "./SetupNewGame/SetupNewGame";
-import ActiveCourt from "./ActiveCourt";
+import ActiveCourt from "./ActiveCourt/ActiveCourt";
 import { CourtState } from "@/types/court.types";
 
 export default function Court({
@@ -11,7 +11,6 @@ export default function Court({
   courtState: CourtState | undefined;
   courtId: number;
 }) {
-  console.log(courtState);
   const emptyCourt = courtState === undefined;
 
   return (

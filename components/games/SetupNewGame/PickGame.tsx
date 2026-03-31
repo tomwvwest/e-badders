@@ -4,9 +4,10 @@ import { useForm } from "react-hook-form";
 import PlayerSuggestions from "./PlayerSuggestions";
 import usePickGameReducer from "@/hooks/reducer/usePickGameReducer/usePickGameReducer";
 import { useAllPlayers } from "@/hooks/context/useAllPlayers";
-import { CourtPlayer } from "@/types/court.types";
 import getObjectLength from "@/utils/objectUtils";
 import { useCourts } from "@/hooks/context/useCourts";
+import getBenchOptions from "@/utils/playerUtils";
+import { useEffect, useMemo } from "react";
 
 type FormValues = {
   searchValue: string;
@@ -16,20 +17,21 @@ export default function PickGame({ courtId }: { courtId: number }) {
   const { allPlayers } = useAllPlayers();
   const { courtsState, courtDispatch } = useCourts();
 
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit, watch } = useForm<FormValues>();
 
-  const playingPlayerIds = Object.values(courtsState).flatMap((court) =>
-    Object.values(court.players).map((p) => p?.playerId)
-  );
-  const benchOptions = allPlayers
-    .filter((p) => p.isSessionPlayer && !playingPlayerIds.includes(p.playerId))
-    .map((p) => ({
-      playerId: p.playerId,
-      name: p.playerName,
-    })) as CourtPlayer[];
-
+  const searchValue = watch("searchValue");
+  const benchOptions = getBenchOptions(courtsState, allPlayers);
   const [state, dispatch] = usePickGameReducer(benchOptions);
-  const { noOfPositions, filledPositions, focusedInput } = state;
+  const { noOfPositions, filledPositions, focusedInput, benchedPlayers } =
+    state;
+
+  const namesToShow = useMemo(() => {
+    return !searchValue
+      ? benchedPlayers
+      : benchedPlayers.filter(({ name }) =>
+          name.toLowerCase().includes(searchValue.trim().toLowerCase())
+        );
+  }, [benchedPlayers, searchValue]);
 
   const canCreate = getObjectLength(filledPositions) === noOfPositions;
 
@@ -70,7 +72,11 @@ export default function PickGame({ courtId }: { courtId: number }) {
       <button onClick={createGame}>
         {canCreate && ">> "}Create Game{canCreate && " <<"}
       </button>
-      <PlayerSuggestions state={state} dispatch={dispatch} />
+      <PlayerSuggestions
+        benchedPlayers={namesToShow}
+        focusedInput={focusedInput}
+        dispatch={dispatch}
+      />
     </>
   );
 }
