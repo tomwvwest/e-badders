@@ -14,13 +14,15 @@ export default function Court({
   const emptyCourt = courtState === undefined;
 
   return (
-    <div className="border">
-      <p>Court {courtId}</p>
-      {emptyCourt ? (
-        <SetupNewGame courtId={courtId} />
-      ) : (
-        <ActiveCourt court={courtState} />
-      )}
+    <div className="border rounded m-3">
+      <p className="p-2">Court {courtId}</p>
+      <div className="flex justify-center">
+        {emptyCourt ? (
+          <SetupNewGame courtId={courtId} />
+        ) : (
+          <ActiveCourt court={courtState} />
+        )}
+      </div>
     </div>
   );
 }

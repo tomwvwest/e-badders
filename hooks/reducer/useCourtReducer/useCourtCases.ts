@@ -4,6 +4,8 @@ import {
   ResetTimerAction,
   StartGameAction,
 } from "./useCourtTypes";
+import { assertPlayers } from "./useCourtUtils";
+import { addGameToSessionAction } from "@/app/actions/game.actions";
 
 export function startGameCase(state: ActiveCourts, action: StartGameAction) {
   const { courtId } = action;

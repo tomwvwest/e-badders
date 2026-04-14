@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/db";
-import { AllPlayer, CreatePlayer, Player } from "@/types/player.types";
-import { PlayerSession } from "@/types/playerSession.types";
+import { Player } from "@/lib/generated/prisma/client";
+import { AllPlayer, CreatePlayer,  } from "@/types/player.types";
 
 export async function createSessionPlayer(
   data: CreatePlayer,

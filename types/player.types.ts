@@ -1,6 +1,3 @@
-import { PlayerSession } from "./playerSession.types";
-import { Session } from "./session.types";
-
 export type CreatePlayer = {
   playerName: string;
   totalGamesPlayed: number;
@@ -12,7 +9,6 @@ export type CreatePlayer = {
 export type Player = {
   userId: number | null;
   playerId: number;
-  totalGamesPlayed: number;
   playerName: string;
   clubForm: number;
   clubRanking: number | null;

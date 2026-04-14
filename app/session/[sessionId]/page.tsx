@@ -1,4 +1,5 @@
 import GameBase from "@/components/games/GameBase";
+import LeaderboardBase from "@/components/leaderboard/LeaderboardBase";
 import PlayerBase from "@/components/player/PlayerBase";
 import SessionBase from "@/components/session/SessionBase";
 import { getAllPlayers } from "@/services/player.service";
@@ -24,6 +25,9 @@ export default async function SessionPage({ params }: Props) {
 
         <SessionBase allPlayersRes={allPlayers}>
           <GameBase />
+
+          <LeaderboardBase />
+
           <PlayerBase sessionId={sessionId} />
         </SessionBase>
       </div>

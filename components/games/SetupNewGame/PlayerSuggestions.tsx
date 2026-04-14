@@ -6,15 +6,15 @@ import { ActionDispatch } from "react";
 export default function PlayerSuggestions({
   benchedPlayers,
   focusedInput,
-  dispatch,
+  gameDispatch,
 }: {
   benchedPlayers: CourtPlayer[];
   focusedInput: FocusedInput;
-  dispatch: ActionDispatch<[action: Action]>;
+  gameDispatch: ActionDispatch<[action: Action]>;
 }) {
   const handlePlayerSelection = (playerId: number) => {
     if (focusedInput !== null) {
-      dispatch({
+      gameDispatch({
         type: "setPlayer",
         playerId,
       });
