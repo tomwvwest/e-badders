@@ -4,19 +4,16 @@ import {
   addSessionPlayerAction,
   createSessionPlayerAction,
 } from "@/app/actions/player.actions";
-import { AllPlayer, CreatePlayer } from "@/types/player.types";
-import { Dispatch, SetStateAction, useContext, useRef, useState } from "react";
+import { CreatePlayer } from "@/types/player.types";
+import { useState } from "react";
 import AddExistingPlayer from "./AddExistingPlayer";
 import useEditPlayerAttendance from "@/hooks/useEditPlayerAttendance";
 import NewPlayerForm from "./NewPlayerForm";
-import { AllPlayerContext } from "@/contexts/AllPlayersContext";
 import { useAllPlayers } from "@/hooks/context/useAllPlayers";
+import { useNumericParam } from "@/hooks/useNumericParam";
 
-export default function AddPlayerToSession({
-  sessionId,
-}: {
-  sessionId: number;
-}) {
+export default function AddPlayerToSession() {
+  const sessionId = useNumericParam("sessionId");
   const { setAllPlayers } = useAllPlayers();
   const [showForm, setShowForm] = useState<boolean>(false);
 
@@ -53,7 +50,7 @@ export default function AddPlayerToSession({
   };
   const randomPlayer: CreatePlayer = {
     playerName: newName(),
-    totalGamesPlayed: 5,
+    // totalGamesPlayed: 5,
     clubForm: 1,
     userId: 1,
   };

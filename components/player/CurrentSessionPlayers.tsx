@@ -3,12 +3,11 @@
 import { removeSessionPlayerAction } from "@/app/actions/player.actions";
 import { useAllPlayers } from "@/hooks/context/useAllPlayers";
 import useEditPlayerAttendance from "@/hooks/useEditPlayerAttendance";
+import { useNumericParam } from "@/hooks/useNumericParam";
 
-export default function CurrentSessionPlayers({
-  sessionId,
-}: {
-  sessionId: number;
-}) {
+export default function CurrentSessionPlayers() {
+  const sessionId = useNumericParam("sessionId");
+
   const { allPlayers, setAllPlayers } = useAllPlayers();
   const sessionPlayers = allPlayers
     .filter((p) => p.isSessionPlayer)

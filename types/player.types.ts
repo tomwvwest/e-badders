@@ -1,6 +1,6 @@
 export type CreatePlayer = {
   playerName: string;
-  totalGamesPlayed: number;
+  // totalGamesPlayed: number;
   clubForm: number;
   clubRanking?: number;
   userId: number;

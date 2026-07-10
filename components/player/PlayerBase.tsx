@@ -3,19 +3,11 @@
 import AddPlayerToSession from "./AddPlayerToSession";
 import CurrentSessionPlayers from "./CurrentSessionPlayers";
 
-export default function PlayerBase({
-  sessionId,
-}: {
-  sessionId: number;
-}) {
+export default function PlayerBase() {
   return (
     <>
-      <AddPlayerToSession
-        sessionId={sessionId}
-      />
-      <CurrentSessionPlayers
-        sessionId={sessionId}
-      />
+      <AddPlayerToSession />
+      <CurrentSessionPlayers />
     </>
   );
 }

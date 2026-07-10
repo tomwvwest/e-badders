@@ -28,7 +28,7 @@ export default async function SessionPage({ params }: Props) {
 
           <LeaderboardBase />
 
-          <PlayerBase sessionId={sessionId} />
+          <PlayerBase />
         </SessionBase>
       </div>
     </div>
