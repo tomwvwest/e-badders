@@ -1,4 +1,3 @@
-import { CourtState } from "@/types/court.types";
 import CourtTimer from "./CourtTimer";
 import EnterScores from "./EnterScores";
 import { useCourts } from "@/hooks/context/useCourts";

@@ -3,7 +3,6 @@
 import SetupNewGame from "./SetupNewGame/SetupNewGame";
 import ActiveCourt from "./ActiveCourt/ActiveCourt";
 import { useCourts } from "@/hooks/context/useCourts";
-import { isObjectEmpty } from "@/utils/objectUtils";
 
 export default function Court({ courtId }: { courtId: number }) {
   const { courtsState } = useCourts();
