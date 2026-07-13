@@ -1,4 +1,4 @@
-import GameBase from "@/components/games/GameBase";
+import CourtsBase from "@/components/games/CourtsBase";
 import LeaderboardBase from "@/components/leaderboard/LeaderboardBase";
 import PlayerBase from "@/components/player/PlayerBase";
 import SessionBase from "@/components/session/SessionBase";
@@ -24,7 +24,7 @@ export default async function SessionPage({ params }: Props) {
         <p>Started at: {currentSession?.startDate.toUTCString()}</p>
 
         <SessionBase allPlayersRes={allPlayers}>
-          <GameBase />
+          <CourtsBase />
 
           <LeaderboardBase />
 

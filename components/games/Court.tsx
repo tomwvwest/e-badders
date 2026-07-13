@@ -2,16 +2,12 @@
 
 import SetupNewGame from "./SetupNewGame/SetupNewGame";
 import ActiveCourt from "./ActiveCourt/ActiveCourt";
-import { CourtState } from "@/types/court.types";
+import { useCourts } from "@/hooks/context/useCourts";
+import { isObjectEmpty } from "@/utils/objectUtils";
 
-export default function Court({
-  courtState,
-  courtId,
-}: {
-  courtState: CourtState | undefined;
-  courtId: number;
-}) {
-  const emptyCourt = courtState === undefined;
+export default function Court({ courtId }: { courtId: number }) {
+  const { courtsState } = useCourts();
+  const emptyCourt = courtsState[courtId] === undefined;
 
   return (
     <div className="border rounded m-3">
@@ -20,7 +16,7 @@ export default function Court({
         {emptyCourt ? (
           <SetupNewGame courtId={courtId} />
         ) : (
-          <ActiveCourt court={courtState} />
+          <ActiveCourt courtId={courtId} />
         )}
       </div>
     </div>

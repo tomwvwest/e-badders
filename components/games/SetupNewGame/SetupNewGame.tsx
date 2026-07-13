@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import PickGame from "./PickGame";
+import PickGame from "./PickGame/PickGame";
 
 type stepType = "manual" | "suggest" | undefined;
 

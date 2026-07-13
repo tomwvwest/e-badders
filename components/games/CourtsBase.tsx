@@ -1,11 +1,11 @@
 "use client";
 
 import { CourtContext } from "@/contexts/CourtsContext";
-import Court from "./Court";
 import useCourtReducer from "@/hooks/reducer/useCourtReducer/useCourtReducer";
 import { useEffect } from "react";
+import SessionCourts from "./SessionCourts";
 
-export default function GameBase() {
+export default function CourtsBase() {
   const numberOfCourts = 3;
   const [courtsState, courtsDispatch] = useCourtReducer();
 
@@ -22,16 +22,7 @@ export default function GameBase() {
       <h1>Games</h1>
 
       <CourtContext.Provider value={{ courtsState, courtsDispatch }}>
-        <div className="grid grid-cols-3 h-70">
-          {Array.from({ length: numberOfCourts }, (_, i) => {
-            const courtId = i + 1;
-            const courtState = courtsState[courtId];
-
-            return (
-              <Court key={courtId} courtState={courtState} courtId={courtId} />
-            );
-          })}
-        </div>
+        <SessionCourts numberOfCourts={numberOfCourts} />
       </CourtContext.Provider>
     </div>
   );

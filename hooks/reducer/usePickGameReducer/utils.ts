@@ -1,5 +1,9 @@
-import { CourtPlayer, FocusedInput, PickPlayersState } from "@/types/court.types";
-import getObjectLength from "@/utils/objectUtils";
+import {
+  CourtPlayer,
+  FocusedInput,
+  PickPlayersState,
+} from "@/types/court.types";
+import { getObjectLength } from "@/utils/objectUtils";
 
 export function getNextFocusedInput(state: PickPlayersState): FocusedInput {
   const { filledPositions: players, focusedInput, noOfPositions } = state;
@@ -28,7 +32,10 @@ function allPositionsFull(
   return noOfPositions === getObjectLength(players);
 }
 
-export function getNewAndExistingPlayers(state: PickPlayersState, playerId: number) {
+export function getNewAndExistingPlayers(
+  state: PickPlayersState,
+  playerId: number
+) {
   const { benchedPlayers, filledPositions, focusedInput } = state;
   const courtPlayer: CourtPlayer | undefined = benchedPlayers.find(
     (p) => p.playerId === playerId

@@ -16,7 +16,7 @@ export default function NewPlayerForm({
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm<FormValues>();
 
   const onSubmit = async (data: FormValues) => {
@@ -24,7 +24,6 @@ export default function NewPlayerForm({
     const createPlayer: CreatePlayer = {
       playerName,
       userId: 1,
-      totalGamesPlayed: 0,
       clubForm: 0
     };
 

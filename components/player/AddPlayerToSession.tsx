@@ -50,7 +50,6 @@ export default function AddPlayerToSession() {
   };
   const randomPlayer: CreatePlayer = {
     playerName: newName(),
-    // totalGamesPlayed: 5,
     clubForm: 1,
     userId: 1,
   };

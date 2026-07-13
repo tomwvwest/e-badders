@@ -1,9 +1,11 @@
 import { CourtState } from "@/types/court.types";
-import CourtTimer from "../CourtTimer";
+import CourtTimer from "./CourtTimer";
 import EnterScores from "./EnterScores";
+import { useCourts } from "@/hooks/context/useCourts";
 
-export default function ActiveCourt({ court }: { court: CourtState }) {
-  const { players, secondsPlayed, courtId } = court;
+export default function ActiveCourt({ courtId }: { courtId: number }) {
+  const { courtsState } = useCourts();
+  const { players, secondsPlayed } = courtsState[courtId];
 
   return (
     <>
