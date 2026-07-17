@@ -1,6 +1,6 @@
 "use client";
 
-import { removeSessionPlayerAction } from "@/app/actions/player.actions";
+import { removeSessionPlayerAction } from "@/app/actions/sessionPlayer.actions";
 import { useAllPlayers } from "@/hooks/context/useAllPlayers";
 import useEditPlayerAttendance from "@/hooks/useEditPlayerAttendance";
 import { useNumericParam } from "@/hooks/useNumericParam";

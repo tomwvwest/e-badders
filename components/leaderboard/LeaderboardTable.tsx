@@ -1,11 +1,19 @@
 "use client";
-import { useAllPlayers } from "@/hooks/context/useAllPlayers";
-import { filterSessionPlayers } from "@/utils/playerUtils";
+import { GetSessionPlayers } from "@/services/sessionPlayer/getSessionPlayers.service";
 
-export default function LeaderboardTable() {
-  const columnNames = ["name", "games played", "club form"];
-  const { allPlayers } = useAllPlayers();
-  const sessionPlayers = filterSessionPlayers(allPlayers);
+export default function LeaderboardTable({
+  sessionPlayers,
+}: {
+  sessionPlayers: GetSessionPlayers;
+}) {
+  const columnNames = [
+    "name",
+    "games played",
+    "games won",
+    "games lost",
+    "win streak",
+    "longest win streak",
+  ];
 
   return (
     <table className="">
@@ -21,8 +29,12 @@ export default function LeaderboardTable() {
       <tbody className="border">
         {sessionPlayers.map((p) => (
           <tr key={`row${p.playerId}`}>
-            <td>{p.playerName}</td>
-            <td>{p.clubForm}</td>
+            <td>{p.Player.playerName}</td>
+            <td>{p.totalGamesPlayed}</td>
+            <td>{p.gamesWon}</td>
+            <td>{p.gamesLost}</td>
+            <td>{p.winStreak}</td>
+            <td>{p.longestWinStreak}</td>
           </tr>
         ))}
       </tbody>

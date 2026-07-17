@@ -1,9 +1,5 @@
 "use client";
 
-import {
-  addSessionPlayerAction,
-  createSessionPlayerAction,
-} from "@/app/actions/player.actions";
 import { CreatePlayer } from "@/types/player.types";
 import { useState } from "react";
 import AddExistingPlayer from "./AddExistingPlayer";
@@ -11,6 +7,7 @@ import useEditPlayerAttendance from "@/hooks/useEditPlayerAttendance";
 import NewPlayerForm from "./NewPlayerForm";
 import { useAllPlayers } from "@/hooks/context/useAllPlayers";
 import { useNumericParam } from "@/hooks/useNumericParam";
+import { createSessionPlayerAction, addSessionPlayerAction } from "@/app/actions/sessionPlayer.actions";
 
 export default function AddPlayerToSession() {
   const sessionId = useNumericParam("sessionId");

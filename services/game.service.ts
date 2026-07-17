@@ -2,7 +2,7 @@ import { prisma } from "@/lib/db";
 import { Game } from "@/lib/generated/prisma/client";
 import { CourtPlayer } from "@/types/court.types";
 import { CreateGame } from "@/types/game.types";
-import updateSessionPlayers from "./sessionPlayer.service";
+import updateSessionPlayers from "./sessionPlayer/updateSessionPlayers.service";
 
 export default async function submitCompletedGame(
   sessionId: number,

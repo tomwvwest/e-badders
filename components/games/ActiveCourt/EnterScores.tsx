@@ -2,7 +2,7 @@
 import { submitGameAction } from "@/app/actions/game.actions";
 import { useCourts } from "@/hooks/context/useCourts";
 import { assertPlayers } from "@/hooks/reducer/useCourtReducer/useCourtUtils";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -12,6 +12,8 @@ type FormValues = {
 };
 
 export default function EnterScores({ courtId }: { courtId: number }) {
+  const router = useRouter();
+  
   const sessionId = Number(useParams().sessionId);
   const { courtsState, courtsDispatch } = useCourts();
   const [showScores, setShowScores] = useState<boolean>(false);
@@ -28,6 +30,8 @@ export default function EnterScores({ courtId }: { courtId: number }) {
       courtId,
       score,
     });
+
+    router.refresh();
   };
 
   return !showScores ? (

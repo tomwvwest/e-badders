@@ -4,6 +4,7 @@ import PlayerBase from "@/components/player/PlayerBase";
 import SessionBase from "@/components/session/SessionBase";
 import { getAllPlayers } from "@/services/player.service";
 import { getSessionById } from "@/services/session.service";
+import { GetSessionPlayers, getSessionPlayers } from "@/services/sessionPlayer/getSessionPlayers.service";
 import { AllPlayer } from "@/types/player.types";
 import { Session } from "@/types/session.types";
 
@@ -17,6 +18,7 @@ export default async function SessionPage({ params }: Props) {
 
   const allPlayers: AllPlayer[] = await getAllPlayers(userId, sessionId);
   const currentSession: Session = await getSessionById(sessionId);
+  const sessionPlayers: GetSessionPlayers = await getSessionPlayers(sessionId);
 
   return (
     <div className="grid grid-rows-3 gap-4">
@@ -26,7 +28,7 @@ export default async function SessionPage({ params }: Props) {
         <SessionBase allPlayersRes={allPlayers}>
           <CourtsBase />
 
-          <LeaderboardBase />
+          <LeaderboardBase sessionPlayers={sessionPlayers}/>
 
           <PlayerBase />
         </SessionBase>

@@ -1,8 +1,13 @@
 "use client";
 import { useState } from "react";
 import LeaderboardTable from "./LeaderboardTable";
+import { GetSessionPlayers } from "@/services/sessionPlayer/getSessionPlayers.service";
 
-export default function LeaderboardBase() {
+export default function LeaderboardBase({
+  sessionPlayers,
+}: {
+  sessionPlayers: GetSessionPlayers;
+}) {
   const [showLeaderboard, setShowLeaderboard] = useState<boolean>(false);
 
   return (
@@ -15,7 +20,7 @@ export default function LeaderboardBase() {
         <>
           <h1>Session Leaderboard</h1>
           <button onClick={() => setShowLeaderboard(false)}>Hide</button>
-          <LeaderboardTable />
+          <LeaderboardTable sessionPlayers={sessionPlayers} />
         </>
       )}
     </div>

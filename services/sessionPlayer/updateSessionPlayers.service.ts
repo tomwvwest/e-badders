@@ -1,10 +1,6 @@
 import { prisma } from "@/lib/db";
 import { CourtPlayer } from "@/types/court.types";
-import getWinningPlayerIds, {
-  updateGamesWonLost,
-  updateSessionPlayerTimes,
-  updateStreaks,
-} from "@/utils/playerSessionUtils";
+import getWinningPlayerIds, { updateSessionPlayerTimes, updateGamesWonLost, updateStreaks } from "@/utils/playerSessionUtils";
 
 export default async function updateSessionPlayers(
   sessionId: number,
