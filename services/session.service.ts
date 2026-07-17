@@ -8,12 +8,12 @@ export async function getSessionById(sessionId: number) {
 }
 
 export async function getSessionPlayers(sessionId: number) {
-  return prisma.playerSession.findMany({
+  return prisma.sessionPlayer.findMany({
     where: {
       sessionId,
     },
     include: {
-      player: true,
+      Player: true,
     },
   });
 }

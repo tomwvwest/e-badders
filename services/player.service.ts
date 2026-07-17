@@ -34,7 +34,7 @@ export async function getAllPlayers(
   const players = await prisma.player.findMany({
     where: { userId },
     include: {
-      sessions: {
+      SessionPlayer: {
         where: { sessionId },
       },
     },
@@ -42,7 +42,7 @@ export async function getAllPlayers(
 
   return players.map(p => ({
     ...p,
-    isSessionPlayer: p.sessions.length > 0
+    isSessionPlayer: p.SessionPlayer.length > 0
   }))
 }
 
@@ -60,7 +60,7 @@ export async function addPlayerToSession(
     throw new Error("Player not found");
   }
 
-  await prisma.playerSession.create({
+  await prisma.sessionPlayer.create({
     data: {
       playerId: playerId,
       sessionId: sessionId,
@@ -74,7 +74,7 @@ export async function addPlayerToSession(
 }
 
 export async function removeSessionPlayer(playerId: number, sessionId: number) {
-  return prisma.playerSession.delete({
+  return prisma.sessionPlayer.delete({
     where: {
       playerId_sessionId: {
         playerId: playerId,

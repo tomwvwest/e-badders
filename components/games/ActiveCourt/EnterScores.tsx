@@ -1,5 +1,5 @@
 "use client";
-import { addGameToSessionAction } from "@/app/actions/game.actions";
+import { submitGameAction } from "@/app/actions/game.actions";
 import { useCourts } from "@/hooks/context/useCourts";
 import { assertPlayers } from "@/hooks/reducer/useCourtReducer/useCourtUtils";
 import { useParams } from "next/navigation";
@@ -21,7 +21,7 @@ export default function EnterScores({ courtId }: { courtId: number }) {
     const { players, secondsPlayed } = courtsState[courtId];
     assertPlayers(players);
 
-    await addGameToSessionAction(sessionId, players, secondsPlayed, score);
+    await submitGameAction(sessionId, players, secondsPlayed, score);
 
     courtsDispatch({
       type: "endGame",

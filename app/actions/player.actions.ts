@@ -25,7 +25,7 @@ export async function removeSessionPlayerAction(
   playerId: number,
   sessionId: number
 ) {
-  return prisma.playerSession.delete({
+  return prisma.sessionPlayer.delete({
     where: {
       playerId_sessionId: {
         playerId: playerId,

@@ -2,13 +2,27 @@ import { prisma } from "@/lib/db";
 import { Game } from "@/lib/generated/prisma/client";
 import { CourtPlayer } from "@/types/court.types";
 import { CreateGame } from "@/types/game.types";
+import updateSessionPlayers from "./sessionPlayer.service";
 
-export default async function addGameToSession(
+export default async function submitCompletedGame(
   sessionId: number,
   players: Record<number, CourtPlayer>,
   secondsPlayed: number,
   score: { team1Score: number; team2Score: number }
 ): Promise<Game> {
+  const game = await createGame(sessionId, players, secondsPlayed, score);
+
+  await updateSessionPlayers(sessionId, players, secondsPlayed, score);
+
+  return game;
+}
+
+async function createGame(
+  sessionId: number,
+  players: Record<number, CourtPlayer>,
+  secondsPlayed: number,
+  score: { team1Score: number; team2Score: number }
+) {
   const { team1Score, team2Score } = score;
 
   const gameRes: CreateGame = {
@@ -24,4 +38,3 @@ export default async function addGameToSession(
 
   return prisma.game.create({ data: gameRes });
 }
-

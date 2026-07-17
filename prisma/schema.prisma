@@ -15,41 +15,22 @@ model User {
 }
 
 model Player {
-  playerId    Int             @id @default(autoincrement())
-  playerName  String
-  clubForm    Float           @default(0)
-  clubRanking Int?
-  userId      Int?
-  sessions    PlayerSession[]
+  playerId      Int             @id @default(autoincrement())
+  playerName    String
+  clubForm      Float           @default(0)
+  clubRanking   Int?
+  userId        Int?
+  SessionPlayer SessionPlayer[]
 }
 
 model Session {
-  sessionId      Int             @id @default(autoincrement())
-  startDate      DateTime
-  endDate        DateTime
-  userId         Int
-  games          Game[]
-  playerSessions PlayerSession[]
-  user           User            @relation(fields: [userId], references: [userId])
-}
-
-model PlayerSession {
-  playerId           Int
-  sessionId          Int
-  totalGamesPlayed   Int       @default(0)
-  gamesWon           Int       @default(0)
-  averagePoints      Float     @default(0)
-  gamesLost          Int       @default(0)
-  lastMatchEnd       DateTime?
-  lastPlayedAt       DateTime?
-  longestWinStreak   Int       @default(0)
-  sessionPlayerId    Int       @id @default(autoincrement())
-  totalSecondsPlayed Int       @default(0)
-  winStreak          Int       @default(0)
-  player             Player    @relation(fields: [playerId], references: [playerId])
-  session            Session   @relation(fields: [sessionId], references: [sessionId])
-
-  @@unique([playerId, sessionId])
+  sessionId     Int             @id @default(autoincrement())
+  startDate     DateTime
+  endDate       DateTime
+  userId        Int
+  games         Game[]
+  user          User            @relation(fields: [userId], references: [userId])
+  SessionPlayer SessionPlayer[]
 }
 
 model Game {
@@ -63,4 +44,21 @@ model Game {
   scoreAway       Int
   gameTimeSeconds Float
   session         Session @relation(fields: [sessionId], references: [sessionId])
+}
+
+model SessionPlayer {
+  playerId           Int
+  sessionId          Int
+  totalGamesPlayed   Int       @default(0)
+  gamesWon           Int       @default(0)
+  gamesLost          Int       @default(0)
+  lastPlayedAt       DateTime?
+  longestWinStreak   Int       @default(0)
+  sessionPlayerId    Int       @id @default(autoincrement())
+  totalSecondsPlayed Int       @default(0)
+  winStreak          Int       @default(0)
+  Player             Player    @relation(fields: [playerId], references: [playerId], map: "PlayerSession_playerId_fkey")
+  Session            Session   @relation(fields: [sessionId], references: [sessionId], map: "PlayerSession_sessionId_fkey")
+
+  @@unique([playerId, sessionId], map: "PlayerSession_playerId_sessionId_key")
 }
