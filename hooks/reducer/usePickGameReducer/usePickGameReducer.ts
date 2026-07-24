@@ -14,12 +14,21 @@ export type Action =
 
 export default function usePickGameReducer(
   courtsState: ActiveCourts,
-  allPlayers: AllPlayer[]
+  allPlayers: AllPlayer[],
+  makeSuggestion: boolean
 ) {
+  const benchedPlayers = getBenchOptions(courtsState, allPlayers);
+  const practiceSuggestions: Record<number, CourtPlayer> = benchedPlayers
+    .slice(0, 4)
+    .reduce<Record<number, CourtPlayer>>((record, player, index) => {
+      record[index + 1] = player;
+      return record;
+    }, {});
+
   const initialState: PickPlayersState = {
     noOfPositions: 4,
-    filledPositions: [],
-    benchedPlayers: getBenchOptions(courtsState, allPlayers),
+    filledPositions: makeSuggestion ? practiceSuggestions : {},
+    benchedPlayers,
     focusedInput: 1,
   };
 

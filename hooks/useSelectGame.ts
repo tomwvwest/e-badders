@@ -6,28 +6,25 @@ import { useCourts } from "./context/useCourts";
 import usePickGameReducer from "./reducer/usePickGameReducer/usePickGameReducer";
 import usePlayerSuggestions from "./usePlayerSuggestions";
 
-export default function useSelectGame(courtId: number) {
+export default function useSelectGame(
+  courtId: number,
+  makeSuggestion: boolean
+) {
   const { allPlayers } = useAllPlayers();
   const { courtsState, courtsDispatch } = useCourts();
 
   const [gameState, gameDispatch] = usePickGameReducer(
     courtsState,
-    allPlayers
+    allPlayers,
+    makeSuggestion
   );
 
   const { register, watch } = useForm<FormValues>();
   const searchValue = watch("searchValue");
 
-  const {
-    noOfPositions,
-    filledPositions,
-    benchedPlayers,
-  } = gameState;
+  const { noOfPositions, filledPositions, benchedPlayers } = gameState;
 
-  const namesToShow = usePlayerSuggestions(
-    benchedPlayers,
-    searchValue
-  );
+  const namesToShow = usePlayerSuggestions(benchedPlayers, searchValue);
 
   const canCreate = getObjectLength(filledPositions) === noOfPositions;
 
@@ -40,7 +37,6 @@ export default function useSelectGame(courtId: number) {
       players: filledPositions,
     });
   };
-
 
   return {
     gameState,

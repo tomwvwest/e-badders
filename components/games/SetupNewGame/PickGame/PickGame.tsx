@@ -16,7 +16,13 @@ export type FormValues = {
   searchValue: string;
 };
 
-export default function PickGame({ courtId }: { courtId: number }) {
+export default function PickGame({
+  courtId,
+  makeSuggestion,
+}: {
+  courtId: number;
+  makeSuggestion: boolean
+}) {
   const {
     gameState,
     gameDispatch,
@@ -24,7 +30,7 @@ export default function PickGame({ courtId }: { courtId: number }) {
     namesToShow,
     canCreate,
     handleCreateGame,
-  } = useSelectGame(courtId);
+  } = useSelectGame(courtId, makeSuggestion);
 
   return (
     <>

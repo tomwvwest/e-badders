@@ -3,34 +3,34 @@
 import { useState } from "react";
 import PickGame from "./PickGame/PickGame";
 
-type stepType = "manual" | "suggest" | undefined;
+type Step = "manual" | "suggest";
 
 export default function SetupNewGame({ courtId }: { courtId: number }) {
-  const [step, setStep] = useState<stepType>(undefined);
+  const [step, setStep] = useState<Step>();
+  const resetPickGame = () => setStep(undefined);
 
-  const resetStep = () => {
-    handleStepSelection(undefined);
-  };
-
-  const handleStepSelection = (selected: stepType) => {
-    setStep(selected);
-  };
+  if (step) {
+    return (
+      <>
+        <PickGame
+          courtId={courtId}
+          makeSuggestion={step === "suggest"}
+        />
+        <button onClick={resetPickGame}>
+          Cancel
+        </button>
+      </>
+    );
+  }
 
   return (
-    <div className="grid grid-rows">
-      {/* form for selecting 4 players */}
-      <button onClick={() => handleStepSelection("manual")}>
+    <div className="flex">
+      <button onClick={() => setStep("manual")}>
         Select Players
       </button>
-      {step === "manual" && (
-        <>
-          <PickGame courtId={courtId} />
-          <button onClick={resetStep}>Cancel</button>
-        </>
-      )}
-
-      {/* bring in suggestion thing - hard */}
-      <button>Suggest Game</button>
+      <button onClick={() => setStep("suggest")}>
+        Suggest Game
+      </button>
     </div>
   );
 }
