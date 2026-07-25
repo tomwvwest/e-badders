@@ -1,5 +1,5 @@
 import { UseFormRegister } from "react-hook-form";
-import { FormValues } from "./PickGame";
+import { FormValues } from "../PickGame";
 
 export default function PickSearchPlayer({
   register,
@@ -7,8 +7,8 @@ export default function PickSearchPlayer({
   register: UseFormRegister<FormValues>;
 }) {
   return (
-    <form className="flex gap-6">
-      <input
+    <form className="flex">
+      <input className="w-full bg-white border-b p-1"
         {...register("searchValue")}
         placeholder="Search for a player..."
       />

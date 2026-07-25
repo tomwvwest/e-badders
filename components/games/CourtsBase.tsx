@@ -18,12 +18,8 @@ export default function CourtsBase() {
   }, [courtsDispatch]);
 
   return (
-    <div className="bg-blue-200">
-      <h1>Games</h1>
-
-      <CourtContext.Provider value={{ courtsState, courtsDispatch }}>
-        <SessionCourts numberOfCourts={numberOfCourts} />
-      </CourtContext.Provider>
-    </div>
+    <CourtContext.Provider value={{ courtsState, courtsDispatch }}>
+      <SessionCourts numberOfCourts={numberOfCourts} />
+    </CourtContext.Provider>
   );
 }

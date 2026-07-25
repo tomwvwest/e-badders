@@ -1,6 +1,6 @@
 "use client";
 import { Action } from "@/hooks/reducer/usePickGameReducer/usePickGameReducer";
-import { CourtPlayer, FocusedInput, PickPlayersState } from "@/types/court.types";
+import { CourtPlayer, FocusedInput } from "@/types/court.types";
 import { ActionDispatch } from "react";
 
 export default function PlayerSuggestions({
@@ -22,7 +22,7 @@ export default function PlayerSuggestions({
   };
 
   return (
-    <div className="flex gap-4">
+    <div className="flex min-h-0 flex-1 flex-col overflow-auto divide-y">
       {benchedPlayers.map(({ playerId, name }, i) => (
         <button key={i} onClick={() => handlePlayerSelection(playerId)}>
           {name}

@@ -1,16 +1,17 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import PlayerSuggestions from "./PlayerSuggestions";
+import PlayerSuggestions from "./RHS/PlayerSuggestions";
 import usePickGameReducer from "@/hooks/reducer/usePickGameReducer/usePickGameReducer";
 import { useAllPlayers } from "@/hooks/context/useAllPlayers";
 import { useCourts } from "@/hooks/context/useCourts";
 import usePlayerSuggestions from "@/hooks/usePlayerSuggestions";
 import { getObjectLength } from "@/utils/objectUtils";
-import PositionPicker from "./PositionPicker";
-import PickSearchPlayer from "./PickSearchPlayer";
-import CreateGameButton from "./CreateGameButton";
+import PositionPicker from "./LHS/PositionPicker";
+import PickSearchPlayer from "./RHS/PickSearchPlayer";
+import CreateGameButton from "./RHS/CreateGameButton";
 import useSelectGame from "@/hooks/useSelectGame";
+import PickFromBenchedPlayers from "./RHS/PickFromBenchedPlayers";
 
 export type FormValues = {
   searchValue: string;
@@ -21,7 +22,7 @@ export default function PickGame({
   makeSuggestion,
 }: {
   courtId: number;
-  makeSuggestion: boolean
+  makeSuggestion: boolean;
 }) {
   const {
     gameState,
@@ -33,18 +34,17 @@ export default function PickGame({
   } = useSelectGame(courtId, makeSuggestion);
 
   return (
-    <>
+    <div className="grid grid-cols-2 h-full divide-x">
+      {/* LHS */}
       <PositionPicker gameState={gameState} gameDispatch={gameDispatch} />
 
-      <PickSearchPlayer register={register} />
-
-      <CreateGameButton canCreate={canCreate} onClick={handleCreateGame} />
-
-      <PlayerSuggestions
-        benchedPlayers={namesToShow}
+      {/* RHS */}
+      <PickFromBenchedPlayers
+        register={register}
+        namesToShow={namesToShow}
         focusedInput={gameState.focusedInput}
         gameDispatch={gameDispatch}
       />
-    </>
+    </div>
   );
 }

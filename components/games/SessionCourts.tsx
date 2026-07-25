@@ -6,7 +6,7 @@ export default function SessionCourts({
   numberOfCourts: number;
 }) {
   return (
-    <div className="grid grid-cols-3 h-70">
+    <div className="grid grid-cols-3 h-70 bg-blue-200">
       {Array.from({ length: numberOfCourts }, (_, i) => {
         const courtId = i + 1;
 
