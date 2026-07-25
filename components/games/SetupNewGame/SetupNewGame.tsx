@@ -3,20 +3,21 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import PickGame from "./PickGame/PickGame";
 import { GamePickType } from "../Court";
+import { useSelectGameType } from "@/hooks/useSelectGame";
 
 type Props = {
-  courtId: number;
   pickType: GamePickType;
   setPickType: Dispatch<SetStateAction<GamePickType | undefined>>;
+  selectGame: useSelectGameType;
 };
 
 export default function SetupNewGame({
-  courtId,
   pickType,
   setPickType,
+  selectGame
 }: Props) {
   if (pickType) {
-    return <PickGame courtId={courtId} makeSuggestion={pickType === "suggest"} />;
+    return <PickGame selectGame={selectGame} />;
   }
 
   return (

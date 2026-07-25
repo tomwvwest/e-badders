@@ -1,37 +1,20 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import PlayerSuggestions from "./RHS/PlayerSuggestions";
-import usePickGameReducer from "@/hooks/reducer/usePickGameReducer/usePickGameReducer";
-import { useAllPlayers } from "@/hooks/context/useAllPlayers";
-import { useCourts } from "@/hooks/context/useCourts";
-import usePlayerSuggestions from "@/hooks/usePlayerSuggestions";
-import { getObjectLength } from "@/utils/objectUtils";
 import PositionPicker from "./LHS/PositionPicker";
-import PickSearchPlayer from "./RHS/PickSearchPlayer";
-import CreateGameButton from "./RHS/CreateGameButton";
-import useSelectGame from "@/hooks/useSelectGame";
 import PickFromBenchedPlayers from "./RHS/PickFromBenchedPlayers";
+import  { useSelectGameType } from "@/hooks/useSelectGame";
 
 export type FormValues = {
   searchValue: string;
 };
 
 export default function PickGame({
-  courtId,
-  makeSuggestion,
+  selectGame,
 }: {
-  courtId: number;
-  makeSuggestion: boolean;
+  selectGame: useSelectGameType;
 }) {
-  const {
-    gameState,
-    gameDispatch,
-    register,
-    namesToShow,
-    canCreate,
-    handleCreateGame,
-  } = useSelectGame(courtId, makeSuggestion);
+  const { gameState, gameDispatch, register, namesToShow } = selectGame;
 
   return (
     <div className="grid grid-cols-2 h-full divide-x">

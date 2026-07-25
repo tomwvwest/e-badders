@@ -1,18 +1,36 @@
 import { FormValues } from "@/components/games/SetupNewGame/PickGame/PickGame";
 import { getObjectLength } from "@/utils/objectUtils";
-import { useForm } from "react-hook-form";
+import { UseFormRegister, useForm } from "react-hook-form";
 import { useAllPlayers } from "./context/useAllPlayers";
 import { useCourts } from "./context/useCourts";
-import usePickGameReducer from "./reducer/usePickGameReducer/usePickGameReducer";
+import usePickGameReducer, { Action } from "./reducer/usePickGameReducer/usePickGameReducer";
 import usePlayerSuggestions from "./usePlayerSuggestions";
+import { CourtPlayer, PickPlayersState } from "@/types/court.types";
+import { ActionDispatch, Dispatch, SetStateAction, useState } from "react";
+
+export type useSelectGameType = {
+  gameState: PickPlayersState;
+  gameDispatch: ActionDispatch<[action: Action]>;
+  register: UseFormRegister<FormValues>;
+  namesToShow: CourtPlayer[];
+  canCreate: boolean;
+  handleCreateGame: () => void;
+  pickType: GamePickType,
+  setPickType: Dispatch<SetStateAction<GamePickType>>
+}
+
+export type GamePickType = "manual" | "suggest" | undefined;
 
 export default function useSelectGame(
   courtId: number,
-  makeSuggestion: boolean
-) {
+  // makeSuggestion: boolean
+): useSelectGameType {
   const { allPlayers } = useAllPlayers();
   const { courtsState, courtsDispatch } = useCourts();
 
+  const [pickType, setPickType] = useState<GamePickType>();
+
+  const makeSuggestion = pickType === "suggest";
   const [gameState, gameDispatch] = usePickGameReducer(
     courtsState,
     allPlayers,
@@ -31,6 +49,8 @@ export default function useSelectGame(
   const handleCreateGame = () => {
     if (!canCreate) return;
 
+    setPickType(undefined);
+
     courtsDispatch({
       type: "startGame",
       courtId,
@@ -45,5 +65,7 @@ export default function useSelectGame(
     namesToShow,
     canCreate,
     handleCreateGame,
+    pickType,
+    setPickType
   };
 }
