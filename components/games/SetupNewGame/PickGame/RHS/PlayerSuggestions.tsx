@@ -22,7 +22,7 @@ export default function PlayerSuggestions({
   };
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-auto divide-y">
+    <div className="flex flex-col divide-y overflow-auto min-h-0 max-h-64 flex-1">
       {benchedPlayers.map(({ playerId, name }, i) => (
         <button key={i} onClick={() => handlePlayerSelection(playerId)}>
           {name}

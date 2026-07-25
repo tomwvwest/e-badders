@@ -1,7 +1,7 @@
 import { Action } from "@/hooks/reducer/usePickGameReducer/usePickGameReducer";
 import { ActionDispatch } from "react";
 
-export default function PositionView({
+export default function PositionButton({
   positionId,
   gameDispatch,
   isFocused,

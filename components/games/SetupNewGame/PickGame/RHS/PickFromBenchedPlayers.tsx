@@ -21,10 +21,8 @@ export default function PickFromBenchedPlayers({
   gameDispatch,
 }: PickFromBenchedPlayersProps) {
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex min-h-0 flex-col ">
       <PickSearchPlayer register={register} />
-
-      {/* <CreateGameButton canCreate={canCreate} onClick={handleCreateGame} /> */}
 
       <PlayerSuggestions
         benchedPlayers={namesToShow}

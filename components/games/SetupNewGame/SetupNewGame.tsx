@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import PickGame from "./PickGame/PickGame";
 import { GamePickType } from "../Court";
 import { useSelectGameType } from "@/hooks/useSelectGame";
+import PrimaryButton from "@/components/common/buttons/PrimaryButton";
 
 type Props = {
   pickType: GamePickType;
@@ -14,16 +15,22 @@ type Props = {
 export default function SetupNewGame({
   pickType,
   setPickType,
-  selectGame
+  selectGame,
 }: Props) {
   if (pickType) {
     return <PickGame selectGame={selectGame} />;
   }
 
   return (
-    <div className="flex justify-center">
-      <button onClick={() => setPickType("manual")}>Select Players</button>
-      <button onClick={() => setPickType("suggest")}>Suggest Game</button>
+    <div className="h-full flex justify-center items-center gap-4">
+      <PrimaryButton
+        text="Select Players"
+        onClick={() => setPickType("manual")}
+      />
+      <PrimaryButton
+        text="Suggest Game"
+        onClick={() => setPickType("suggest")}
+      />
     </div>
   );
 }

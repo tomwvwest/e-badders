@@ -17,7 +17,8 @@ export default function PickGame({
   const { gameState, gameDispatch, register, namesToShow } = selectGame;
 
   return (
-    <div className="grid grid-cols-2 h-full divide-x">
+    <div className="grid grid-cols-[5fr_3fr] h-full divide-x">
+
       {/* LHS */}
       <PositionPicker gameState={gameState} gameDispatch={gameDispatch} />
 

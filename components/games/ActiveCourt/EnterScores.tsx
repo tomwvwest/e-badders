@@ -1,5 +1,6 @@
 "use client";
 import { submitGameAction } from "@/app/actions/game.actions";
+import PrimaryButton from "@/components/common/buttons/PrimaryButton";
 import { useCourts } from "@/hooks/context/useCourts";
 import { assertPlayers } from "@/hooks/reducer/useCourtReducer/useCourtUtils";
 import { useParams, useRouter } from "next/navigation";
@@ -13,7 +14,7 @@ type FormValues = {
 
 export default function EnterScores({ courtId }: { courtId: number }) {
   const router = useRouter();
-  
+
   const sessionId = Number(useParams().sessionId);
   const { courtsState, courtsDispatch } = useCourts();
   const [showScores, setShowScores] = useState<boolean>(false);
@@ -35,7 +36,7 @@ export default function EnterScores({ courtId }: { courtId: number }) {
   };
 
   return !showScores ? (
-    <button onClick={() => setShowScores(true)}>Enter Scores</button>
+    <PrimaryButton text="Enter Scores" onClick={() => setShowScores(true)} />
   ) : (
     <>
       <p>Scores</p>

@@ -23,7 +23,6 @@ export type GamePickType = "manual" | "suggest" | undefined;
 
 export default function useSelectGame(
   courtId: number,
-  // makeSuggestion: boolean
 ): useSelectGameType {
   const { allPlayers } = useAllPlayers();
   const { courtsState, courtsDispatch } = useCourts();

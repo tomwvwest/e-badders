@@ -1,7 +1,7 @@
 import { Action } from "@/hooks/reducer/usePickGameReducer/usePickGameReducer";
 import { PickPlayersState } from "@/types/court.types";
 import { ActionDispatch } from "react";
-import PositionView from "./PositionButton";
+import PositionButton from "./PositionButton";
 
 type Props = {
   gameState: PickPlayersState;
@@ -13,7 +13,7 @@ export default function PositionPicker({ gameState, gameDispatch }: Props) {
   const positions = Array.from({ length: noOfPositions }, (_, i) => i + 1);
 
   const positionButtons = positions.map((positionId) => (
-    <PositionView
+    <PositionButton
       key={positionId}
       positionId={positionId}
       gameDispatch={gameDispatch}
